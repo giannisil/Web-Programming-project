@@ -1,0 +1,29 @@
+@font-face {
+    font-family: raleway;
+    src: url(https://fonts.googleapis.com/css?family=Raleway:800);
+}
+
+body {
+    background-image: url("bg.jpg");
+    background-size: cover;
+}
+
+form div {
+    color: darkgrey;
+}
+
+input,
+select {
+    background-color: lightblue;
+}
+
+input:focus,
+select:focus {
+    background-color: orange;
+}
+
+h1 {
+    text-decoration: underline;
+    color: blanchedalmond;
+    font-family: raleway, Arial, Helvetica, sans-serif;
+}

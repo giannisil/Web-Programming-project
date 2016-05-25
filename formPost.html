@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<html>
+
+<head>
+    <title>ΘΠΔ</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <h1 style="text-align:center;">Φόρμα Εγγραφής</h1>
+
+    <form action="reportPost.php" method="POST">
+        <div>Όνομα:</div>
+        <input type="text" name="onoma" />
+        <div>Επώνυμο:</div>
+        <input type="text" name="epwnumo" />
+        <div>Όνομα χρήστη:</div>
+        <input type="text" name="username" />
+        <div> Συνθηματικό:</div>
+        <input type="password" name="pass" />
+        <div>Επιβεβαίωση συνθηματικού</div>
+        <input type="password" name="conf_pass" />
+        <div>Εmail:</div>
+        <input type="text" name="email" />
+        <div>Διεύθυνση:</div>
+        <input type="text" name="adress" />
+        <div> Τμήμα:</div>
+        <input type="text" name="class" />
+        <div> Εξάμηνο:</div>
+        <input type="number" name="semester" />
+        <br>
+        <div>
+            <input type="checkbox" name="aswr" value="agree" /> Συμφώνω με τους όρους χρήσης</div>
+        <br>
+        <input type="submit" name="submit" value="submit" />
+    </form>
+</body>
+
+</html>
