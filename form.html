@@ -22,6 +22,8 @@
                 alert('Το συνθηματικό λείπει');
             } else if (document.getElementById('fconf_pass').value == '') {
                 alert('Το επιβεβαίωση συνθηματικού λείπει');
+            } else if (document.getElementById('AM').value == '') {
+                alert('O Αριθμός Μητρώου λείπει');
             } else if (document.getElementById("femail").value.indexOf('@') === -1) {
                 alert('Λάθος είσοδος email');
             } else if (document.getElementById('femail').value == '') {
@@ -53,6 +55,8 @@
         <input type="password" id="fpass" name="pass" />
         <div>Επιβεβαίωση συνθηματικού</div>
         <input type="password" id="fconf_pass" name="conf_pass" />
+        <div>Αριθμός Μητρώου:</div>
+        <input type="number" id="AM" name="AM" />
         <div>Εmail:</div>
         <input type="text" id="femail" name="email" />
         <div>Διεύθυνση:</div>
