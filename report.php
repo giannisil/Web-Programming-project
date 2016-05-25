@@ -24,8 +24,8 @@
 		// Create database
 		$DBName = "db3519";
 		$tableName = "data3";
-		$sqlCreateDB = "CREATE DATABASE " . $DBName;
-		$sqlCreateTable = "CREATE TABLE ". $tableName ." (id integer, name varchar(20), "
+		$sqlCreateDB = "CREATE DATABASE IF NOT EXISTS " . $DBName;
+		$sqlCreateTable = "CREATE TABLE IF NOT EXISTS ". $tableName ." (id integer, name varchar(20), "
 				. "surname varchar(30), username varchar(20), password varchar(10), "
 				. "email varchar(20), address varchar(20), dpt varchar(20), "
 				."semester integer, PRIMARY KEY(ID))";
@@ -42,7 +42,7 @@
 			} 
 			else {  echo "<div>Error creating table: " . $conn->error . ".</div>"; }
 		} 
-		elseif ($conn->query("DROP TABLE " . $tableName) === TRUE) { // Delete to disable debug mode
+		/*elseif ($conn->query("DROP TABLE " . $tableName) === TRUE) { // Delete to disable debug mode
 			echo "Table " . $tableName . " dropped successfully. ";
 			if ($conn->query("DROP DATABASE " . $DBName) === TRUE) { // Delete to disable debug mode
 				echo "Database " . $DBName . " dropped successfully. ";
@@ -52,7 +52,7 @@
 			$DBselected = mysqli_select_db ($conn, $DBName); 
 			$conn->query($sqlCreateTable);
 			echo "Table ". $tableName ." created successfully. ";     
-		}
+		}*/
 		else {  echo "<div>Error creating database: " . $conn->error . ".</div>"; }
 
 		$conn->close();
