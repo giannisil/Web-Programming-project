@@ -23,7 +23,8 @@ select:focus {
 }
 
 h1 {
+    text-align: center;
     text-decoration: underline;
-    color: blanchedalmond;
+    color: #f60;
     font-family: raleway, Arial, Helvetica, sans-serif;
 }
