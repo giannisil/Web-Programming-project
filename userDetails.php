@@ -14,7 +14,7 @@
 	<?php
 		$servername = "localhost";
 		$username = "3519";
-		$password = "tenlix";
+		$password = "3519-Ix";
 		$DBName = "db3519";
 
 		// Create connection
@@ -25,7 +25,7 @@
 		} 
 		
 		// Get data from Database
-		$sqlGetAssoc = "SELECT id,name,surname,username,password,email,address,dpt,semester FROM data3 WHERE id=''"; //TODO fix WHERE id
+		$sqlGetAssoc = "SELECT id,name,surname,username,password,email,address,dpt,semester FROM data3 WHERE id='".$_GET["id"]."'"; 
 		$result = $conn->query($sqlGetAssoc);
 		
 		if ($result->num_rows > 0) {
