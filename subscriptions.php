@@ -10,35 +10,37 @@
 	}
 	// Remove classes from session that don't appearing in GET request (e.g. not selected in form)
 	if (!empty($_GET)) {
-		// if only java class was selected
-		if (isset($_GET["classes"]['java']) && !isset($_GET["classes"]['tpd']) && !isset($_GET["classes"]['linux'])) {
-			unset($_SESSION['tpd']);
-			unset($_SESSION['linux']);
+		foreach ($_GET["classes"] as $class) {
+			// if only java class was selected
+			if (isset($class['java']) && !isset($class['tpd']) && !isset($class['linux'])) {
+				unset($_SESSION['tpd']);
+				unset($_SESSION['linux']);
+			}
+			// if only tpd class was selected
+			else if (!isset($class['java']) && isset($class['tpd']) && !isset($class['linux'])) {
+				unset($_SESSION['java']);
+				unset($_SESSION['linux']);
+			}
+			// if only linux class was selected
+			else if (!isset($class['java']) && !isset($class['tpd']) && isset($class['linux'])) {
+				unset($_SESSION['java']);
+				unset($_SESSION['tpd']);
+			}
+			// if only java AND tpd classes were selected
+			else if (isset($class['java']) && isset($class['tpd']) && !isset($class['linux'])) {
+				unset($_SESSION['linux']);
+			}
+			// if only java AND linux classes were selected
+			else if (isset($class['java']) && !isset($class['tpd']) && isset($class['linux'])) {
+				unset($_SESSION['tpd']);
+			}
+			// if only tpd AND linux classes were selected
+			else if (!isset($class['java']) && isset($class['tpd']) && isset($class['linux'])) {
+				unset($_SESSION['java']);
+			}
+			// if ALL classes were selected, then nothing to unset
+			else { echo "Dead man's land in cookie unset ifs" ; }
 		}
-		// if only tpd class was selected
-		else if (!isset($_GET["classes"]['java']) && isset($_GET["classes"]['tpd']) && !isset($_GET["classes"]['linux'])) {
-			unset($_SESSION['java']);
-			unset($_SESSION['linux']);
-		}
-		// if only linux class was selected
-		else if (!isset($_GET["classes"]['java']) && !isset($_GET["classes"]['tpd']) && isset($_GET["classes"]['linux'])) {
-			unset($_SESSION['java']);
-			unset($_SESSION['tpd']);
-		}
-		// if only java AND tpd classes were selected
-		else if (isset($_GET["classes"]['java']) && isset($_GET["classes"]['tpd']) && !isset($_GET["classes"]['linux'])) {
-			unset($_SESSION['linux']);
-		}
-		// if only java AND linux classes were selected
-		else if (isset($_GET["classes"]['java']) && !isset($_GET["classes"]['tpd']) && isset($_GET["classes"]['linux'])) {
-			unset($_SESSION['tpd']);
-		}
-		// if only tpd AND linux classes were selected
-		else if (!isset($_GET["classes"]['java']) && isset($_GET["classes"]['tpd']) && isset($_GET["classes"]['linux'])) {
-			unset($_SESSION['java']);
-		}
-		// if ALL classes were selected, then nothing to unset
-		else { echo "Dead man's land in cookie unset ifs" ; }
 	}
 	else {
 		unset($_SESSION['java']);
