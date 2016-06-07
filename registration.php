@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <meta charset="UTF-8" />
+<?php
+	session_start();
+?>
 <html>
 
 <head>
@@ -10,6 +13,14 @@
 <body background="photo1.jpg">
 	
 	<h1>Registration Form</h1>
+	
+	<?php 
+		if (isset($_SESSION['name'])) {
+			echo "<div>Welcome back ". $_SESSION['name'] ."! <div>"; 
+			echo '<a href="logout.php">Logout &raquo;</a>';
+			echo '<br><br><br>';
+		}
+	?>
 	
 	<?php // Init Database code
 		$servername = "localhost";
@@ -88,14 +99,14 @@
                 alert('Δεν έχει επιλεχθεί μάθημα');
             } else if (!document.getElementById('faswer').checked) {
                 alert('Πατήστε agree');
-            } else {
+            } else { // input is all OK
                 document.forms[0].submit();
             }
         }
     </script>
 	
 	<div>
-		<form action="report.php" method="GET">
+		<form action="subscriptions.php" method="GET">
 			<div>Όνομα:</div>
 			<input type="text" id="fonoma" name="onoma" />
 			<div>Επώνυμο:</div>
@@ -118,11 +129,17 @@
 			<input type="number" id="fsemester" name="semester" />
 			<br>
 			<div> Επιλογή Μαθήματος </div>
-			<select multiple='multiple' id="fclasses" name="classes">
+			<select multiple='multiple' id="fclasses" name="classes[]">
 				<option value="" >επέλεξε μάθημα...</option> 
-				<option value="Αντικειμενοστραφής Προγραμματισμός">Αντικειμενοστραφής Προγραμματισμός</option>
-				<option value="Προγραμματισμός διαδικτύου">Προγραμματισμός διαδικτύου</option>   
-				<option value="Λειτουργικά συστήματα">Λειτουργικά συστήματα</option>      
+				<option value="java"  <?php if(isset($_SESSION['java'])) echo "selected" ?>>
+						Αντικειμενοστραφής Προγραμματισμός
+				</option>
+				<option value="tpd" <?php if(isset($_SESSION['tpd'])) echo "selected" ?>>
+						Προγραμματισμός διαδικτύου
+					</option>   
+				<option value="linux" <?php if(isset($_SESSION['linux'])) echo "selected" ?>>
+						Λειτουργικά συστήματα
+					</option>      
 			</select>
 			<div>
 				<input type="checkbox" id="faswer" name="aswr" value="agree" /> Συμφώνω με τους όρους χρήσης</div>
