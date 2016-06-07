@@ -12,7 +12,7 @@
 	<?php // Init Database code
 		$servername = "localhost";
 		$username = "3519";
-		$password = "tenlix";
+		$password = "3519-Ix";
 
 		// Create connection
 		$conn = new mysqli($servername, $username, $password);
