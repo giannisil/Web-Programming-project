@@ -54,18 +54,7 @@
 				echo "Table ". $tableName ." created successfully. ";
 			} 
 			else {  echo "<div>Error creating table: " . $conn->error . ".</div>"; }
-		} 
-		/*elseif ($conn->query("DROP TABLE " . $tableName) === TRUE) { // Delete to disable debug mode
-			echo "Table " . $tableName . " dropped successfully. ";
-			if ($conn->query("DROP DATABASE " . $DBName) === TRUE) { // Delete to disable debug mode
-				echo "Database " . $DBName . " dropped successfully. ";
-			}
-			$conn->query($sqlCreateDB);
-			echo "Database " . $DBName . " created successfully. ";
-			$DBselected = mysqli_select_db ($conn, $DBName); 
-			$conn->query($sqlCreateTable);
-			echo "Table ". $tableName ." created successfully. ";     
-		}*/
+		}
 		else {  echo "<div>Error creating database: " . $conn->error . ".</div>"; }
 
 		$conn->close();

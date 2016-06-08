@@ -5,14 +5,16 @@
 	// Add classes from GET request to session 
 	if (!empty($_GET)) {
 		// reset previous session state
-		if (isset($class['java'])) 	unset($_SESSION['java']);
-		if (isset($class['tpd'])) 	unset($_SESSION['tpd']);
-		if (isset($class['linux'])) unset($_SESSION['linux']);
-		// update session state from get request
-		$_SESSION['name'] = $_GET["onoma"];
+		unset($_SESSION['java']);
+		unset($_SESSION['tpd']);
+		unset($_SESSION['linux']);
+		// Update session state from get request
 		foreach ($_GET["classes"] as $class) {
 			$_SESSION[$class] = 1;
 		}
+		// Save misc current user's data from get request in session cookie
+		if (isset($_GET["onoma"])) 	$_SESSION['name'] = $_GET["onoma"];
+		if (isset($_GET["AM"])) 	$_SESSION['AM'] = $_GET["AM"];
 	}
 ?>
 
@@ -55,40 +57,42 @@
 ?>
 
 <?php /*========= Code to insert the new registration entry to DB ============ */ 
-	$conn = new mysqli($servername, $username, $password, $DBName);
-	
-	$fields = array($_GET["AM"], $_GET["onoma"], $_GET["epwnumo"], $_GET["username"], $_GET["pass"]
-			, $_GET["email"], $_GET["adress"], $_GET["class"], $_GET["semester"]); 
-	if (in_array("java", $_GET["classes"])) {
-			array_push($fields, "1");
-	}else {
-		array_push($fields, "0");
+	if ( (!empty($_GET)) && (isset($_GET["pass"])) )  {
+		$conn = new mysqli($servername, $username, $password, $DBName);
+		
+		$fields = array($_GET["AM"], $_GET["onoma"], $_GET["epwnumo"], $_GET["username"], $_GET["pass"]
+				, $_GET["email"], $_GET["adress"], $_GET["class"], $_GET["semester"]); 
+		if (in_array("java", $_GET["classes"])) {
+				array_push($fields, "1");
+		}else {
+			array_push($fields, "0");
+		}
+		if (in_array("tpd", $_GET["classes"])) {
+				array_push($fields, "1");
+		}else {
+			array_push($fields, "0");
+		}
+		if (in_array("linux", $_GET["classes"])) {
+				array_push($fields, "1");
+		}else {
+			array_push($fields, "0");
+		}
+		
+		$sqlInserData = 'INSERT INTO ' . $tableName . ' VALUES (';
+		
+		foreach ($fields as $field) {
+			$sqlInserData = $sqlInserData . '"' . $field . '"' . ', ';
+		}
+		$sqlInserData = rtrim($sqlInserData, ", ");
+		$sqlInserData = $sqlInserData . ')';
+		
+		if (!$conn->query($sqlInserData) === TRUE) {
+			echo "Error creating new entry in database " . $DBName . ". " . $conn->error . "<br/>" 
+					. "SQL command: " . $sqlInserData;
+		}
+		
+		$conn->close();
 	}
-	if (in_array("tpd", $_GET["classes"])) {
-			array_push($fields, "1");
-	}else {
-		array_push($fields, "0");
-	}
-	if (in_array("linux", $_GET["classes"])) {
-			array_push($fields, "1");
-	}else {
-		array_push($fields, "0");
-	}
-	
-	$sqlInserData = 'INSERT INTO ' . $tableName . ' VALUES (';
-	
-	foreach ($fields as $field) {
-		$sqlInserData = $sqlInserData . '"' . $field . '"' . ', ';
-	}
-	$sqlInserData = rtrim($sqlInserData, ", ");
-	$sqlInserData = $sqlInserData . ')';
-	
-	if (!$conn->query($sqlInserData) === TRUE) {
-		echo "Error creating new entry in database " . $DBName . ". " . $conn->error . "<br/>" 
-				. "SQL command: " . $sqlInserData;
-	}
-	
-	$conn->close();
 ?>
 <html>
 
@@ -114,7 +118,7 @@
 	</div>
 	
 	<div style="margin-top:60px;">
-		<a href="registration.php">Go back to registration page &raquo;</a>
+		<a href="updateClasses.php">Update registered classes &raquo;</a>
 	</div>
 	
 	<div style="margin-top:20px;">
