@@ -5,6 +5,18 @@
 <head>
     <title>ΘΠΔ</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    
+    <script type="text/javascript">
+        function submitForm() {
+            if (document.getElementById('fusername').value == '') {
+                alert('Το όνομα χρήστη λείπει');
+            } else if (document.getElementById('fpass').value == '') {
+                alert('Το συνθηματικό λείπει');
+            } else { // input is all OK
+                document.forms[0].submit();
+            }
+        }
+    </script>
 </head>
 
 <body background="photo1.jpg">
@@ -30,16 +42,16 @@
     <br>
     <div><a href="https://www.teicrete.gr/">Ιστοσελίδα Ιδρύματος</a></div>
     <br>
-    <div><a href="register.html">Εγγραφή</a></div>
+    <div><a href="registration.php">Εγγραφή</a></div>
     <br/>
-    <form action="classIndex.html">
-        <div> First name:<br></br>
-            <input type="text" name="όνομα">
+    <form action="userList.php">
+        <div> Username:</div>
+            <input type="text" name="Username" id="fusername">
             <br>
-            <div> Last name:<br></br>
-                <input type="text" name="επώνυμο">
-                <br><br>
-                <input type="submit" value="Submit">
+            <div> Password:</div>
+            <input type="password" name="Password" id="fpass">
+            <br><br>
+            <input type="submit" value="Login" onclick="submitForm()">
     </form>
 </body>
 
