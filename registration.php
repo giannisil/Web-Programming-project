@@ -71,7 +71,9 @@
             } else if (document.getElementById('fpass').value == '') {
                 alert('Το συνθηματικό λείπει');
             } else if (document.getElementById('fconf_pass').value == '') {
-                alert('Το επιβεβαίωση συνθηματικού λείπει');
+                alert('Η επιβεβαίωση συνθηματικού λείπει'); 
+			} else if (document.getElementById('fconf_pass').value != document.getElementById('fpass').value) {
+                alert('Η επιβεβαίωση συνθηματικού δεν ταιριάζει');
             } else if (document.getElementById('AM').value == '') {
                 alert('O Αριθμός Μητρώου λείπει');
             } else if (document.getElementById("femail").value.indexOf('@') === -1) {
