@@ -25,23 +25,26 @@
 		} 
 		
 		// Get data from Database
-		$sqlGetAssoc = "SELECT id,name,surname,username,password,email,address,dpt,semester FROM data3 WHERE id='".$_GET["id"]."'"; 
+		$sqlGetAssoc = "SELECT id,name,surname,username,password,email,address,dpt,semester,classJava,classTPD,classLinux FROM data3 WHERE id='".$_GET["id"]."'"; 
 		$result = $conn->query($sqlGetAssoc);
 		
 		if ($result->num_rows > 0) {
 			// output data of each row
 			while($row = $result->fetch_assoc()) {
-				echo '<div>AM: ' 
-                        . $row["id"]
-                        . " - Onoma: "      . $row["name"] 
+				$echoString = '<div>AM: '    . $row["id"]
+                        . " - Onoma: "       . $row["name"] 
                         . " - Epitheto: "    . $row["surname"] 
                         . " - Username: "    . $row["username"] 
                         . " - Password: "    . $row["password"] 
                         . " - Email: "       . $row["email"] 
                         . " - Address:  "    . $row["address"] 
                         . " - Department: "  . $row["dpt"] 
-                        . " - Semester:  "   . $row["semester"] 
-                        . "</div><br>";
+                        . " - Semester:  "   . $row["semester"] ;
+				if ($row["classJava"]  == 1) { $echoString = $echoString . " - Class: Αντικειμενοστραφής Προγραμματισμός"; }
+				if ($row["classTPD"]   == 1) { $echoString = $echoString . " - Class: Προγραμματισμός διαδικτύου"; }
+				if ($row["classLinux"] == 1) { $echoString = $echoString . " - Class: Λειτουργικά συστήματα"; }
+				$echoString = $echoString . "</div><br>";
+				echo $echoString;
 			}
 		} else {
 			echo "0 results";
