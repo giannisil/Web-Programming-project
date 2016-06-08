@@ -28,3 +28,8 @@ h1 {
     color: #f60;
     font-family: raleway, Arial, Helvetica, sans-serif;
 }
+
+option:checked, option:hover {
+    background: blue;
+    color: whitesmoke;
+}

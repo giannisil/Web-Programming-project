@@ -3,57 +3,16 @@
 <?php session_start(); 
 	// Add classes from GET request to session 
 	if (!empty($_GET)) {
+		// reset previous session state
+		if (isset($class['java'])) 	unset($_SESSION['java']);
+		if (isset($class['tpd'])) 	unset($_SESSION['tpd']);
+		if (isset($class['linux'])) unset($_SESSION['linux']);
+		// update session state from get request
 		$_SESSION['name'] = $_GET["onoma"];
 		foreach ($_GET["classes"] as $class) {
 			$_SESSION[$class] = 1;
 		}
 	}
-	// Remove classes from session that don't appearing in GET request (e.g. not selected in form)
-	if (!empty($_GET)) {
-		foreach ($_GET["classes"] as $class) {
-			// if only java class was selected
-			if (isset($class['java']) && !isset($class['tpd']) && !isset($class['linux'])) {
-				unset($_SESSION['tpd']);
-				unset($_SESSION['linux']);
-			}
-			// if only tpd class was selected
-			else if (!isset($class['java']) && isset($class['tpd']) && !isset($class['linux'])) {
-				unset($_SESSION['java']);
-				unset($_SESSION['linux']);
-			}
-			// if only linux class was selected
-			else if (!isset($class['java']) && !isset($class['tpd']) && isset($class['linux'])) {
-				unset($_SESSION['java']);
-				unset($_SESSION['tpd']);
-			}
-			// if only java AND tpd classes were selected
-			else if (isset($class['java']) && isset($class['tpd']) && !isset($class['linux'])) {
-				unset($_SESSION['linux']);
-			}
-			// if only java AND linux classes were selected
-			else if (isset($class['java']) && !isset($class['tpd']) && isset($class['linux'])) {
-				unset($_SESSION['tpd']);
-			}
-			// if only tpd AND linux classes were selected
-			else if (!isset($class['java']) && isset($class['tpd']) && isset($class['linux'])) {
-				unset($_SESSION['java']);
-			}
-			// if ALL classes were selected, then nothing to unset
-			else { echo "Dead man's land in cookie unset ifs" ; }
-		}
-	}
-	else {
-		unset($_SESSION['java']);
-		unset($_SESSION['tpd']);
-		unset($_SESSION['linux']);
-	}
-	
-	
-	
-	
-	if (!isset($_GET['java'])) unset($_SESSION['java']);
-	if (!isset($_GET['tpd'])) unset($_SESSION['tpd']);
-	if (!isset($_GET['linux'])) unset($_SESSION['linux']);
 ?>
 <html>
 
@@ -79,7 +38,11 @@
 	</div>
 	
 	<div style="margin-top:60px;">
-		<a href="logout.php">&raquo; Logout <?php if (isset($_SESSION['name'])) echo $_SESSION['name'];?> &laquo;</a>
+		<a href="registration.php">Go back to registration page &raquo;</a>
+	</div>
+	
+	<div style="margin-top:20px;">
+		<a href="logout.php">Logout <?php if (isset($_SESSION['name'])) echo $_SESSION['name'];?> &raquo;</a>
 	</div>
 
 </body>
